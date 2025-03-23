@@ -318,40 +318,58 @@
     <script>
         const contactForm = document.getElementById('contactForm');
         
-        // Check if returning from form submission (Formspree adds a form-submission query parameter)
-        window.addEventListener('DOMContentLoaded', function() {
-            // Check if we're returning from Formspree submission
+        // Function to show success message
+        function showFormSuccessMessage() {
+            if (contactForm) {
+                // Clear the form fields
+                contactForm.reset();
+                
+                // Show success message
+                const formStatus = document.getElementById('form-status');
+                const successMessage = document.getElementById('success-message');
+                
+                if (formStatus && successMessage) {
+                    formStatus.classList.remove('hidden');
+                    successMessage.classList.remove('hidden');
+                    
+                    // Hide the message after 5 seconds
+                    setTimeout(function() {
+                        formStatus.classList.add('hidden');
+                        successMessage.classList.add('hidden');
+                    }, 5000);
+                }
+                
+                // Scroll to form section
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+        
+        // Check if returning from form submission when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for form-submission parameter or referrer from formspree
             if (window.location.search.includes('form-submission') || 
                 document.referrer.includes('formspree.io')) {
                 
-                // Clear the form fields
-                if (contactForm) {
-                    contactForm.reset();
-                    
-                    // Show success message
-                    const formStatus = document.getElementById('form-status');
-                    const successMessage = document.getElementById('success-message');
-                    
-                    if (formStatus && successMessage) {
-                        formStatus.classList.remove('hidden');
-                        successMessage.classList.remove('hidden');
-                        
-                        // Hide the message after 5 seconds
-                        setTimeout(function() {
-                            formStatus.classList.add('hidden');
-                            successMessage.classList.add('hidden');
-                        }, 5000);
-                    }
-                    
-                    // Remove the query parameters to avoid showing the message on page refresh
-                    if (window.history && window.history.replaceState) {
-                        const cleanUrl = window.location.pathname + window.location.hash;
-                        window.history.replaceState({}, document.title, cleanUrl);
-                    }
+                showFormSuccessMessage();
+                
+                // Remove the query parameters to avoid showing the message on page refresh
+                if (window.history && window.history.replaceState) {
+                    const cleanUrl = window.location.pathname;
+                    window.history.replaceState({}, document.title, cleanUrl);
                 }
+            }
+            
+            // Also check localStorage for a form submission flag
+            if (localStorage.getItem('formSubmitted') === 'true') {
+                showFormSuccessMessage();
+                localStorage.removeItem('formSubmitted');
             }
         });
         
+        // Handle form submission
         if (contactForm) {
             contactForm.addEventListener('submit', function(e) {
                 const submitBtn = document.getElementById('submit-button');
