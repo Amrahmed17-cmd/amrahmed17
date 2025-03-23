@@ -1,0 +1,341 @@
+/* Custom CSS Styles */
+
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Base Styles */
+:root {
+    --primary-color: #3182ce;
+    --secondary-color: #9f7aea;
+    --text-color: #2d3748;
+    --bg-color: #f7fafc;
+    --section-bg: #ffffff;
+    --dark-bg: #1a202c;
+    --dark-section-bg: #2d3748;
+    --dark-text-color: #e2e8f0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    scroll-behavior: smooth;
+}
+
+.dark body {
+    color: var(--dark-text-color);
+}
+
+/* Custom Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 1s ease-out;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Section transitions */
+section {
+    transition: all 0.3s ease;
+}
+
+/* Hover effects for cards */
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.02);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2c5282;
+}
+
+.dark ::-webkit-scrollbar-track {
+    background: #2d3748;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #4a5568;
+}
+
+/* Dark mode styles */
+html.dark {
+    color-scheme: dark;
+}
+
+html.dark body {
+    background-color: #1a202c !important;
+    color: #e2e8f0 !important;
+}
+
+html.dark .bg-white {
+    background-color: #2d3748 !important;
+}
+
+html.dark .bg-gray-100 {
+    background-color: #1a202c !important;
+}
+
+html.dark .text-gray-800 {
+    color: #e2e8f0 !important;
+}
+
+html.dark .text-gray-600 {
+    color: #cbd5e0 !important;
+}
+
+html.dark .dark\:bg-gray-800 {
+    background-color: #2d3748 !important;
+}
+
+html.dark .dark\:bg-gray-900 {
+    background-color: #1a202c !important;
+}
+
+html.dark .dark\:text-white {
+    color: #fff !important;
+}
+
+html.dark .dark\:text-gray-300 {
+    color: #cbd5e0 !important;
+}
+
+/* Skill card hover effect */
+.bg-white.rounded-lg {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bg-white.rounded-lg:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Timeline animation for education section */
+.border-l-4 {
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.border-l-4:hover {
+    transform: translateX(5px);
+}
+
+.border-l-4::before {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    left: -8px;
+    top: 6px;
+}
+
+/* Custom button styles */
+.inline-block.px-6.py-3 {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.inline-block.px-6.py-3::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.inline-block.px-6.py-3:hover::before {
+    left: 0;
+}
+
+/* Social icons hover effects */
+.flex.justify-center a,
+.flex.space-x-4 a {
+    transition: transform 0.3s ease;
+}
+
+.flex.justify-center a:hover,
+.flex.space-x-4 a:hover {
+    transform: translateY(-3px);
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    section {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Return to top button styles */
+#returnToTop {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+#returnToTop:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+#returnToTop i {
+    transition: transform 0.3s ease;
+}
+
+#returnToTop:hover i {
+    transform: translateY(-2px);
+}
+
+/* Animation for the return to top button */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(49, 130, 206, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(49, 130, 206, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(49, 130, 206, 0);
+    }
+}
+
+#returnToTop.visible {
+    animation: pulse 2s infinite;
+}
+
+html.dark #returnToTop.visible {
+    animation: none; /* Disable pulse in dark mode to avoid color clash */
+}
+
+html.dark #returnToTop {
+    background-color: #4299e1 !important;
+}
+
+html.dark #returnToTop:hover {
+    background-color: #3182ce !important;
+}
+
+/* Contact form styles */
+#contactForm input,
+#contactForm textarea {
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+#contactForm input:focus,
+#contactForm textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+}
+
+#contactForm button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+#contactForm button:hover {
+    transform: translateY(-2px);
+}
+
+#contactForm button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+#contactForm button:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 1;
+    }
+    20% {
+        transform: scale(25, 25);
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
+}
+
+/* Dark mode form styles */
+html.dark #contactForm input,
+html.dark #contactForm textarea {
+    background-color: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+}
+
+html.dark #contactForm input:focus,
+html.dark #contactForm textarea:focus {
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.3);
+} 
