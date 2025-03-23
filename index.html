@@ -24,7 +24,7 @@
             
             <!-- Mobile Navigation Controls -->
             <div class="flex items-center space-x-2 md:hidden">
-                <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 dark:bg-transparent focus:outline-none">
                     <i id="darkModeIconMobile" class="fas fa-moon"></i>
                 </button>
                 <button id="mobile-menu-button" class="text-gray-600 dark:text-gray-300 focus:outline-none">
@@ -38,7 +38,7 @@
                 <a href="#skills" class="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">Skills</a>
                 <a href="#education" class="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">Education</a>
                 <a href="#contact" class="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">Contact</a>
-                <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 dark:bg-transparent focus:outline-none">
                     <i id="darkModeIcon" class="fas fa-moon"></i>
                 </button>
             </div>
@@ -256,13 +256,15 @@
         }
         
         // Initialize dark mode based on localStorage
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            document.documentElement.classList.add('dark');
-            document.getElementById('darkModeIcon').className = 'fas fa-sun text-yellow-300';
-            if (document.getElementById('darkModeIconMobile')) {
-                document.getElementById('darkModeIconMobile').className = 'fas fa-sun text-yellow-300';
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.documentElement.classList.add('dark');
+                document.getElementById('darkModeIcon').className = 'fas fa-sun text-yellow-300';
+                if (document.getElementById('darkModeIconMobile')) {
+                    document.getElementById('darkModeIconMobile').className = 'fas fa-sun text-yellow-300';
+                }
             }
-        }
+        });
 
         // Mobile menu functionality
         document.addEventListener('DOMContentLoaded', function() {
