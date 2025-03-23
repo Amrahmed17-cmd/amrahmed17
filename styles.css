@@ -338,4 +338,12 @@ html.dark #contactForm input:focus,
 html.dark #contactForm textarea:focus {
     border-color: #4299e1;
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.3);
+}
+
+/* Ensure no button background for dark mode toggle */
+button[onclick="toggleDarkMode()"] {
+    background: none !important;
+    box-shadow: none !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
 } 
