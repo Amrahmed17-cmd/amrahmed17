@@ -327,10 +327,12 @@
                 // Show success message
                 const formStatus = document.getElementById('form-status');
                 const successMessage = document.getElementById('success-message');
+                const errorMessage = document.getElementById('error-message');
                 
                 if (formStatus && successMessage) {
                     formStatus.classList.remove('hidden');
                     successMessage.classList.remove('hidden');
+                    errorMessage.classList.add('hidden');
                     
                     // Hide the message after 5 seconds
                     setTimeout(function() {
@@ -338,56 +340,69 @@
                         successMessage.classList.add('hidden');
                     }, 5000);
                 }
-                
-                // Scroll to form section
-                const contactSection = document.getElementById('contact');
-                if (contactSection) {
-                    contactSection.scrollIntoView({ behavior: 'smooth' });
-                }
             }
         }
         
-        // Check if returning from form submission when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check for form-submission parameter or referrer from formspree
-            if (window.location.search.includes('form-submission') || 
-                document.referrer.includes('formspree.io')) {
-                
-                showFormSuccessMessage();
-                
-                // Remove the query parameters to avoid showing the message on page refresh
-                if (window.history && window.history.replaceState) {
-                    const cleanUrl = window.location.pathname;
-                    window.history.replaceState({}, document.title, cleanUrl);
-                }
-            }
+        // Function to show error message
+        function showFormErrorMessage() {
+            const formStatus = document.getElementById('form-status');
+            const successMessage = document.getElementById('success-message');
+            const errorMessage = document.getElementById('error-message');
             
-            // Also check localStorage for a form submission flag
-            if (localStorage.getItem('formSubmitted') === 'true') {
-                showFormSuccessMessage();
-                localStorage.removeItem('formSubmitted');
+            if (formStatus && errorMessage) {
+                formStatus.classList.remove('hidden');
+                errorMessage.classList.remove('hidden');
+                successMessage.classList.add('hidden');
+                
+                // Hide the message after 5 seconds
+                setTimeout(function() {
+                    formStatus.classList.add('hidden');
+                    errorMessage.classList.add('hidden');
+                }, 5000);
             }
-        });
+        }
         
-        // Handle form submission
+        // Handle form submission with AJAX
         if (contactForm) {
             contactForm.addEventListener('submit', function(e) {
-                const submitBtn = document.getElementById('submit-button');
+                e.preventDefault(); // Prevent the default form submission
                 
-                // Store form data in localStorage before submission
-                localStorage.setItem('formSubmitted', 'true');
+                const submitBtn = document.getElementById('submit-button');
+                const formData = new FormData(contactForm);
                 
                 // Change button text while submitting
                 submitBtn.textContent = 'Sending...';
                 submitBtn.disabled = true;
                 
-                // We don't prevent default - let the form submit normally to Formspree
-                
-                // Reset button state after a delay (in case submission is blocked)
-                setTimeout(function() {
+                // Use fetch API to submit the form to Formspree
+                fetch('https://formspree.io/f/xjkyyzaz', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Form submitted successfully
+                        showFormSuccessMessage();
+                    } else {
+                        // Form submission failed
+                        showFormErrorMessage();
+                    }
+                    
+                    // Reset button state
                     submitBtn.textContent = 'Send Message';
                     submitBtn.disabled = false;
-                }, 2000);
+                })
+                .catch(error => {
+                    // Handle network errors
+                    showFormErrorMessage();
+                    
+                    // Reset button state
+                    submitBtn.textContent = 'Send Message';
+                    submitBtn.disabled = false;
+                });
             });
         }
     </script>
